@@ -1,0 +1,124 @@
+{
+  "name": "@ridi-web/vext",
+  "version": "1.0.0",
+  "description": "A lightweighted alternative to next.js",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "production": {
+        "import": "./dist/index.prod.js",
+        "default": "./dist/index.prod.cjs"
+      },
+      "import": "./dist/index.dev.js",
+      "default": "./dist/index.dev.cjs"
+    },
+    "./head": {
+      "types": "./dist/head.d.ts",
+      "production": {
+        "import": "./dist/head.prod.js",
+        "default": "./dist/head.prod.cjs"
+      },
+      "import": "./dist/head.dev.js",
+      "default": "./dist/head.dev.cjs"
+    },
+    "./link": {
+      "types": "./dist/link.d.ts",
+      "production": {
+        "import": "./dist/link.prod.js",
+        "default": "./dist/link.prod.cjs"
+      },
+      "import": "./dist/link.dev.js",
+      "default": "./dist/link.dev.cjs"
+    },
+    "./router": {
+      "types": "./dist/router.d.ts",
+      "production": {
+        "import": "./dist/router.prod.js",
+        "default": "./dist/router.prod.cjs"
+      },
+      "import": "./dist/router.dev.js",
+      "default": "./dist/router.dev.cjs"
+    },
+    "./document": {
+      "types": "./dist/document.d.ts",
+      "production": {
+        "import": "./dist/document.prod.js",
+        "default": "./dist/document.prod.cjs"
+      },
+      "import": "./dist/document.dev.js",
+      "default": "./dist/document.dev.cjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "index.d.ts": [
+        "./dist/index.d.ts"
+      ],
+      "head.d.ts": [
+        "./dist/head.d.ts"
+      ],
+      "link.d.ts": [
+        "./dist/link.d.ts"
+      ],
+      "router.d.ts": [
+        "./dist/router.d.ts"
+      ],
+      "document.d.ts": [
+        "./dist/document.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint .",
+    "build": "yarn run clean && concurrently npm:build:prod npm:build:dev npm:build:types && yarn build:postprocess",
+    "build:dev": "NODE_ENV=development vite build --mode=development --emptyOutDir=false",
+    "build:prod": "vite build",
+    "build:types": "tsc -p tsconfig.build.json && vite build --config vite.config.types.ts",
+    "build:postprocess": "rm -rf ./dist/types",
+    "precommit": "yarn run lint --",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react-swc": "^3.2.0",
+    "connect": "^3.7.0",
+    "deepmerge": "^4.3.1",
+    "fast-glob": "^3.2.12",
+    "micromatch": "^4.0.5",
+    "react-router-dom": "^6.10.0",
+    "vite": "^4.2.1",
+    "vite-plugin-svgr": "^2.4.0"
+  },
+  "devDependencies": {
+    "@ridi/eslint-config": "^6.0.0",
+    "@types/connect": "^3.4.35",
+    "@types/deepmerge": "^2.2.0",
+    "@types/micromatch": "^4.0.2",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/parser": "^5.35.1",
+    "concurrently": "^7.6.0",
+    "eslint": "^8.34.0",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "prettier": "^2.8.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup-plugin-dts": "^5.2.0",
+    "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}
